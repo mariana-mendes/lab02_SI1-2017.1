@@ -11,15 +11,15 @@
 	<script src="js/controller/seriesAppCtrl.js"></script>
 </head>
 
-
-
 <body ng-controller="seriesAppCtrl">
 
 	<div class="page-header">
 			<h4 ng-bind="app"></h4>
 	</div>
 
-<input type="text" class="form-control"/>
+<input type="text" class="form-control" ng-model="requisicao" name="resquisicao"/>
+<button ng-click="formatacao()"></button>
+{{series}}
 
 
 </body>
