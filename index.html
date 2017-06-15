@@ -2,7 +2,7 @@
 <html ng-app="seriesApp">
 <head>
 	<title>Laboratorio 2 - SI1 - 2017.1</title>
-
+	 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/app.css">
 
@@ -17,10 +17,8 @@
 			<h4 ng-bind="app"></h4>
 	</div>
 
-<input type="text" class="form-control" ng-model="requisicao" name="resquisicao"/>
-<button ng-click="formatacao()"></button>
+<input type="text" class="form-control" ng-model="buscaSerie"/>
+<button ng-click="formata()"> Formata</button>
 {{series}}
-
-
 </body>
 </html>

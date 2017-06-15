@@ -1,27 +1,30 @@
-angular.module("seriesApp").controller("seriesAppCtrl", function ($scope) {
+angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http) {
 	$scope.app = "Banco de Series"
-	$scope.series = [];
-	$scope.requisicao;
+	$scope.series = "";
+	$scope.buscaSerie = "";
 
-	$scope.formatacao = function () {
+	$scope.formata = function (){
 		var stringFormatada = "https://omdbapi.com/?s=";
-		$scope.requisicao = requisicao.split(" ");
+		var busca = $scope.buscaSerie.split(" ");
+		stringFormatada += busca[0];
+	
+ 		for(var i = 1; i < busca.length; i++ ){
+ 			if(i == busca.length){
+				stringFormatada += busca[i];
+			}else{
+				stringFormatada+= "%20";
+				stringFormatada+= busca[i];
+			};
+		};
+		stringFormatada += "&apikey=93330d3c";
+		carregaSeries(stringFormatada);
+ 	};
 
-		console.log('oi');
-		for(var i = 0; i < requisicao.lenght-1; i++ ){
-			$scope.requisicao += $scope.requisicao[i];
-			$scope.requisicao += "%20";
-		}
-		$scope.requisicao += $scope.requisicao[requisicao.lenght]
-		carregaSeries()
-	};
-
-	var carregaSeries = function () {
-		$http.get($scope.requisicao).then(function (resultado){
+		
+	var carregaSeries = function (requisicao) {
+		$http.get(requisicao).then(function (resultado){
 			$scope.series = resultado.data;
 		});
-	};
-
-
+	}; 
 
 });
