@@ -1,6 +1,34 @@
-.page-header{
-  margin-top: 20px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
+.jumbotron{
+	height: 20px;
+	background-color: #9c27b0
+
+}
+
+.tituloPagina{
+	font-style: inherit;
+	color :#ffffff;
+	margin-left: 20px;
+	margin-top: 1px;
+	font-size: 26px;
+	font-family: Verdana;
+}
+
+.form-control{
+	width: 500px;
+	margin-right: 1000px;
+	margin-left: 20px;
+	border-radius: 10px;
+}
+
+.img-seriado{
+	width: 200px;
+	margin: 20px;
+
+}
+
+
+.botao{
+	margin-left: 550px;
+	margin-top: 5px;
+	
 }

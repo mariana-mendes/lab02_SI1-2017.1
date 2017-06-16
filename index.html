@@ -12,13 +12,20 @@
 </head>
 
 <body ng-controller="seriesAppCtrl">
-
-	<div class="page-header">
-			<h4 ng-bind="app"></h4>
+	<div class="jumbotron">
+		<h4 class="tituloPagina">{{app}}</h4>
 	</div>
 
 <input type="text" class="form-control" ng-model="buscaSerie"/>
-<button ng-click="formata()"> Formata</button>
-{{series}}
+<button class="botao" ng-click="formata()"> Busca</button>
+
+<div ng-repeat="serie in serieBuscada.Search">
+    <img src="{{serie.Poster}}" title="aqui" class="img-seriado"> 
+ 	<li>
+ 		{{serie.Title}}  
+ 		<button class="add-watchlist" ng-click="addWatchlist" ng-model="addWatchlist">Quero ver</button>
+ 	</li> 
+</div>
+
 </body>
 </html>

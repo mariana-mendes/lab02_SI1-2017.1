@@ -1,7 +1,9 @@
 angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http) {
 	$scope.app = "Banco de Series"
-	$scope.series = "";
+	$scope.serieBuscada = [];
 	$scope.buscaSerie = "";
+	$scope.watchlist = [];
+
 
 	$scope.formata = function (){
 		var stringFormatada = "https://omdbapi.com/?s=";
@@ -23,7 +25,8 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 		
 	var carregaSeries = function (requisicao) {
 		$http.get(requisicao).then(function (resultado){
-			$scope.series = resultado.data;
+			$scope.serieBuscada = resultado.data;
+			console.log($scope.serieBuscada);
 		});
 	}; 
 
