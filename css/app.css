@@ -1,34 +1,65 @@
 .jumbotron{
 	height: 20px;
-	background-color: #9c27b0
+	background-color: #691A99;
+	float: left;
+	width: 1370px;
+	
 
 }
 
 .tituloPagina{
 	font-style: inherit;
 	color :#ffffff;
-	margin-left: 20px;
-	margin-top: 1px;
 	font-size: 26px;
 	font-family: Verdana;
+	text-align: left;
+	margin-left: 20px;
+	margin-bottom: 40px;
+}
+
+
+
+.img-seriado{
+	width: 150px;
+	background-color: yellow;
+	
 }
 
 .form-control{
-	width: 500px;
-	margin-right: 1000px;
-	margin-left: 20px;
-	border-radius: 10px;
-}
-
-.img-seriado{
-	width: 200px;
-	margin: 20px;
-
-}
-
-
-.botao{
-	margin-left: 550px;
+	width: 300px;
+	margin-right: 200px;
 	margin-top: 5px;
+	margin-bottom: 10px;
+	height: 30px;
+	float: right;
+
+}
+
+
+.botoes-view{
+	height: 40px;
+	margin-bottom: 30px;
+	width: 100%;
+	margin-top: 1px;
+	background-color: #009688;
+	float: left;
+	color: white;
+	clear: left;
+	align-items: left;
 	
+	
+}
+	
+.botao{
+	margin-bottom: 5px;
+	float: left;
+	margin-top: 1000px;
+	margin-left: 1200px;
+	
+}
+
+.add-watchlist{
+	width: 100px;
+	height: 30px;
+	font-size: 10px;
 }

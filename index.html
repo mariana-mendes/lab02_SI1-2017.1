@@ -16,16 +16,46 @@
 		<h4 class="tituloPagina">{{app}}</h4>
 	</div>
 
-<input type="text" class="form-control" ng-model="buscaSerie"/>
-<button class="botao" ng-click="formata()"> Busca</button>
 
-<div ng-repeat="serie in serieBuscada.Search">
-    <img src="{{serie.Poster}}" title="aqui" class="img-seriado"> 
- 	<li>
- 		{{serie.Title}}  
- 		<button class="add-watchlist" ng-click="addWatchlist" ng-model="addWatchlist">Quero ver</button>
- 	</li> 
-</div>
+	<div class="botoes-view">
+		
+		<input type="text" class="form-control" ng-model="buscaSerie"/>
+		<a href="#minhaSeries">
+			<button style="background-color: #009688; border: 0; margin-top: 10px; margin-left: 20px;" > Minhas Series</button>
+		</a>
+		
+		<a href="#favoritas">
+			<button style="background-color: #009688 ; border: 0 ; margin-left: 20px;" > Watchlist </button>
+		</a>
+		<a href="#watchlist">
+			<button style="background-color: #009688 ; border: 0 ; margin-left: 20px;"> Favoritas</button>
+		</a>
+		
+		
+		
+		<button style="margin-right: 30px; margin-top: 5px; height: 30px; background-color:#009688; float: right;" ng-click="formata()"> Busca</button>
+
+	</div>	
+
+
+
+	<div id="minhaSeries">
+	AQUIIIII
+	</div>	
+
+
+	<div id="favoritas"></div>
+		Series Favoritas:
+
+	<div id="watchlist"></div>
+		Watchlist:
+	
+	<div md-card layout="column">
+		<div ng-repeat="serie in serieBuscada.Search" class="col-sm-4">
+			<img src="{{serie.Poster}}" title="{{serie.Title}}" class="img-seriado"> 
+ 			 <button class="add-watchlist" ng-click="addWatchlist(serie)" ng-model="addWatchlist">Quero ver</button>
+		</div>
+	</div>
 
 </body>
 </html>

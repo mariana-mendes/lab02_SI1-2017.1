@@ -22,7 +22,16 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 		carregaSeries(stringFormatada);
  	};
 
-		
+
+ 	$scope.addWatchlist = function(serie){
+ 		$scope.watchlist.push(serie);
+ 		console.log($scope.watchlist);
+ 	};	
+
+ 	console.log($scope.watchlist);
+
+
+
 	var carregaSeries = function (requisicao) {
 		$http.get(requisicao).then(function (resultado){
 			$scope.serieBuscada = resultado.data;
