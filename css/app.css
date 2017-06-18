@@ -51,11 +51,11 @@
 }
 	
 .botao{
-	margin-bottom: 5px;
-	float: left;
-	margin-top: 1000px;
-	margin-left: 1200px;
-	
+	background-color: #009688; 
+	border: 0; 
+	margin-top: 10px; 
+	margin-left: 20px;
+	color: white;
 }
 
 .add-watchlist{
@@ -63,3 +63,10 @@
 	height: 30px;
 	font-size: 10px;
 }
+
+.img-resumo{
+	width: 150px;
+	height: 200px;
+}
+
+

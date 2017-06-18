@@ -3,6 +3,26 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 	$scope.serieBuscada = [];
 	$scope.buscaSerie = "";
 	$scope.watchlist = [];
+	$scope.arrayExibido = [];
+	$scope.minhasSeries = [];
+
+
+	$scope.addMinhasSeries = function(serie){
+		$scope.minhasSeries.push(serie);
+	}
+
+	$scope.irParaMinhasSeries = function(){
+		$scope.arrayExibido = $scope.minhasSeries;
+	}
+
+
+	$scope.irParaMinhaWatchlist = function(){
+		$scope.arrayExibido = $scope.watchlist;
+				
+		if($scope.arrayExibido.length == 0 ){
+			alert("Você ainda não adicionou séries :(");
+		}
+	}
 
 
 	$scope.formata = function (){
@@ -35,6 +55,7 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 	var carregaSeries = function (requisicao) {
 		$http.get(requisicao).then(function (resultado){
 			$scope.serieBuscada = resultado.data;
+			$scope.arrayExibido = $scope.serieBuscada.Search;
 			console.log($scope.serieBuscada);
 		});
 	}; 
