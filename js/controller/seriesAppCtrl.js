@@ -8,6 +8,16 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 	$scope.idSerie ="";
 
 
+	$scope.checaSerieWatchlist = function(titulo){
+		for(var i = 0; i < watchlist.length; i++){
+			if(titulo == watchlist[i].Title){
+				return true;
+			}
+		}
+		return false;
+	};
+
+
 	$scope.addMinhasSeries = function(serie){
 		$scope.minhasSeries.push(serie);
 	}
@@ -40,7 +50,7 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 			};
 		};
 
-		stringFormatada += "&apikey=93330d3c";
+		stringFormatada += "&apikey=93330d3c&type=series";
 		console.log(stringFormatada);
 		carregaSeries(stringFormatada);
  	};

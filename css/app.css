@@ -1,11 +1,3 @@
-.jumbotron{
-	height: 20px;
-	background-color: #691A99;
-	float: left;
-	width: 1370px;
-	
-
-}
 
 .tituloPagina{
 	font-style: inherit;
@@ -20,8 +12,10 @@
 
 
 .img-seriado{
-	width: 150px;
+	width: 216px;
+	height: 288;
 	background-color: yellow;
+	align-items: center;
 	
 }
 
@@ -35,27 +29,11 @@
 
 }
 
-
-.botoes-view{
-	height: 40px;
-	margin-bottom: 30px;
-	width: 100%;
-	margin-top: 1px;
-	background-color: #009688;
+	
+.text-sinopse{
+	text-align: left;
+	font-size: 15px;
 	float: left;
-	color: white;
-	clear: left;
-	align-items: left;
-	
-	
-}
-	
-.botao{
-	background-color: #009688; 
-	border: 0; 
-	margin-top: 10px; 
-	margin-left: 20px;
-	color: white;
 }
 
 .add-watchlist{
