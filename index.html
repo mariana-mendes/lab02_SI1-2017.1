@@ -20,47 +20,45 @@
 		<h4 class="tituloPagina">{{app}}</h4>
 	</div>
 
-
 	<div class="botoes-view">
-		
-		<input type="text" class="form-control" ng-model="buscaSerie"/>
+				<input type="text" class="form-control" ng-model="buscaSerie"/>
 		<a >
 			<button class="botao" ng-click="irParaMinhasSeries()" > Minhas Series</button>
 		</a>
-		
-		<a href="#" id="favoritas">
+				<a href="#" id="favoritas">
 			<button class="botao" ng-click="irParaMinhaWatchlist()"> Watchlist </button>
 		</a>
 		<a href="#" id="watchlist">
 			<button class="botao"> Favoritas</button>
 		</a>
-		
+
 		<button style="margin-right: 30px; margin-top: 5px; height: 30px; background-color:#009688; float: right;" ng-click="formata()"> Busca</button>
 
-	</div>	
-	
+	</div>
 
 	<div id="watchlist"></div>
-	
-	
-	<div md-card layout="column" ng-repeat="serie in arrayExibido" class="col-sm-4">
+
+		<div md-card layout="column" ng-repeat="serie in arrayExibido" class="col-sm-4">
 		<a >
-			<img src="{{serie.Poster}}" class="img-seriado" data-target="#infoSerieModal{{$index}}" data-toggle="modal">
+			<img src="{{serie.Poster}}" class="img-seriado" data-target="#infoSerieModal{{$index}}" data-toggle="modal" ng-click="buscaInfoSerie(serie.imdbID)">
 		</a>
-			
-		
+
 
 		<div class="modal" id="infoSerieModal{{$index}}" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button class="close" data-dismiss="modal">&times;</button>
-						
-						<h4 class="title" ng-bind="serie.Title"> {{serie.Plot}} </h4>
+
+						<h4 class="title" ng-bind="serie.Title"> </h4>
 					</div>
 
 						<div class="modal-body">
 							<img src="{{serie.Poster}}" class="img-resumo">
+								<h3>Sinopse: {{idSerie.Plot}}</h3>
+								<h3> Classificação: {{idSerie.imdbRating}}</h3>
+ 
+								
 								<button ng-click="addMinhasSeries(serie)"> Já vi.</button>
 								<button ng-click="addWatchlist(serie)"> Quero Ver</button>
 

@@ -5,6 +5,7 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 	$scope.watchlist = [];
 	$scope.arrayExibido = [];
 	$scope.minhasSeries = [];
+	$scope.idSerie ="";
 
 
 	$scope.addMinhasSeries = function(serie){
@@ -18,7 +19,7 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 
 	$scope.irParaMinhaWatchlist = function(){
 		$scope.arrayExibido = $scope.watchlist;
-				
+
 		if($scope.arrayExibido.length == 0 ){
 			alert("Você ainda não adicionou séries :(");
 		}
@@ -29,16 +30,18 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 		var stringFormatada = "https://omdbapi.com/?s=";
 		var busca = $scope.buscaSerie.split(" ");
 		stringFormatada += busca[0];
-	
+
  		for(var i = 1; i < busca.length; i++ ){
  			if(i == busca.length){
 				stringFormatada += busca[i];
 			}else{
-				stringFormatada+= "%20";
+				stringFormatada+= "+";
 				stringFormatada+= busca[i];
 			};
 		};
+
 		stringFormatada += "&apikey=93330d3c";
+		console.log(stringFormatada);
 		carregaSeries(stringFormatada);
  	};
 
@@ -46,11 +49,19 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
  	$scope.addWatchlist = function(serie){
  		$scope.watchlist.push(serie);
  		console.log($scope.watchlist);
- 	};	
-
- 	console.log($scope.watchlist);
+ 	};
 
 
+
+ 	$scope.buscaInfoSerie = function(key){
+ 		var r = "https://omdbapi.com/?i=" + key + "&apikey=93330d3c";
+
+ 		$http.get(r).then(function(result){
+ 			$scope.idSerie = result.data;
+ 			
+ 		});
+
+ 	}
 
 	var carregaSeries = function (requisicao) {
 		$http.get(requisicao).then(function (resultado){
@@ -58,6 +69,6 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 			$scope.arrayExibido = $scope.serieBuscada.Search;
 			console.log($scope.serieBuscada);
 		});
-	}; 
+	};
 
 });
