@@ -75,16 +75,22 @@
     									<a >
       									<img style="height: 250px;" src="{{serie.Poster}}"></a>
   										</div>
-  								<div class="media-body">
-   									 <h4 class="media-heading">{{serie.Title}}</h4>
-    										
-    										<t>Sinopse: </t>{{idSerie.Plot}}
-    										<
-  											
+  										<div class="media-body">
+   									 	 											
+    									<p>Sinopse: {{idSerie.Plot}}</p>
+    									<p>Faixa etária: {{idSerie.Rated}}</p>
+    									<p>Média IMDB: {{idSerie.imdbRating}}</p>
+    									<p>Sua nota: </p>
+    									<input placeholder="Sua avaliação"/><button>Avaliar</button>
+    									<br/>
+    									<br/>
+    										<button ng-click="addMinhasSeries(serie)"> Já vi</button>
+											<button ng-click="addWatchlist(serie)"> Quero Ver</button>
+											<button class="btn btn-danger">Remover</button>
+    								  	
   									</div>
 							</div>
- 								<button ng-click="addMinhasSeries(serie)"> Já vi.</button>
-								<button ng-click="addWatchlist(serie)"> Quero Ver</button>
+ 								
 						</div>				
 				</div>
 			</div>
