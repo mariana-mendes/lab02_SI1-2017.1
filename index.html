@@ -70,27 +70,24 @@
 					</div>
 
 						<div class="modal-body">
-							<div><img src="{{serie.Poster}}" class="img-resumo">
-
-								<div  class="text-sinopse">
-									<ul >
-									
-									<h3>Data de Lançamento: </h3>
-									<h3>Direção: </h3>
-
-									<h3>Sinopse: {{idSerie.Plot}}</h3>
-
-									<h3>Classificação: {{idSerie.imdbRating}}</h3>
-									</ul>
- 								<div class="alert alert-danger" role="alert">Essa série já está na sua Watchlist</div>
-								<button ng-click="addMinhasSeries(serie)"> Já vi.</button>
-								<button ng-click="addWatchlist(serie)"> Quero Ver</button>
-								</div>
-								
+								<div class="media">
+  									<div class="media-left">
+    									<a >
+      									<img style="height: 250px;" src="{{serie.Poster}}"></a>
+  										</div>
+  								<div class="media-body">
+   									 <h4 class="media-heading">{{serie.Title}}</h4>
+    										
+    										<t>Sinopse: </t>{{idSerie.Plot}}
+    										<
+  											
+  									</div>
 							</div>
-
-							
-						</div>
+ 								<button ng-click="addMinhasSeries(serie)"> Já vi.</button>
+								<button ng-click="addWatchlist(serie)"> Quero Ver</button>
+						</div>				
+				</div>
+			</div>
 
 					<div class="modal-footer">
 						<button class="btn btn-primary" data-dismiss="modal"> Fechar</button>

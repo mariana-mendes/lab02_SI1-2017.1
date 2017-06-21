@@ -8,19 +8,32 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 	$scope.idSerie ="";
 
 
-	$scope.checaSerieWatchlist = function(titulo){
-		for(var i = 0; i < watchlist.length; i++){
-			if(titulo == watchlist[i].Title){
+
+	$scope.checaSerieRepetida = function(idSerie, array){
+		for (var i = array.length - 1; i >= 0; i--) {
+			if(array[i].Title == idSerie){
 				return true;
+				break;
 			}
-		}
+
+		};
 		return false;
 	};
 
 
-	$scope.addMinhasSeries = function(serie){
-		$scope.minhasSeries.push(serie);
+	$scope.checaAPI =  function(value){
+		if(!value){
+			alert("nn");
+		}
 	}
+
+	$scope.addMinhasSeries = function(serie){
+		if(!$scope.checaSerieRepetida(serie.Title, $scope.minhasSeries)){
+			$scope.minhasSeries.push(serie);
+		}else{
+			alert("serie repetida");
+		}
+	};
 
 	$scope.irParaMinhasSeries = function(){
 		$scope.arrayExibido = $scope.minhasSeries;
@@ -57,8 +70,12 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 
 
  	$scope.addWatchlist = function(serie){
- 		$scope.watchlist.push(serie);
- 		console.log($scope.watchlist);
+ 		if(!$scope.checaSerieRepetida(serie.Title, $scope.watchlist)){
+ 			$scope.watchlist.push(serie);
+ 			console.log($scope.watchlist);
+ 		}else{
+ 			alert("serie repetida");
+ 		}
  	};
 
 
@@ -78,6 +95,7 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 			$scope.serieBuscada = resultado.data;
 			$scope.arrayExibido = $scope.serieBuscada.Search;
 			console.log($scope.serieBuscada);
+			$scope.checaAPI(resultado.Response);
 		});
 	};
 
