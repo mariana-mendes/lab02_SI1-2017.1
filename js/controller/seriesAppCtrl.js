@@ -1,34 +1,33 @@
 angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http) {
 	$scope.app = "Banco de Series"
-	$scope.serieBuscada = [];
-	$scope.buscaSerie = "";
 	$scope.watchlist = [];
 	$scope.arrayExibido = [];
 	$scope.minhasSeries = [];
 	$scope.idSerie ="";
+	$scope.optionsNotas = [1,1.5,2,2.5,3,3.5,4,4.5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10];
+	$scope.notFoundSerie;
 
 
 
-	$scope.checaSerieRepetida = function(idSerie, array){
+	var checaSerieRepetida = function(idSerie, array){
 		for (var i = array.length - 1; i >= 0; i--) {
 			if(array[i].Title == idSerie){
 				return true;
 				break;
 			}
-
 		};
 		return false;
 	};
 
 
 	$scope.checaAPI =  function(value){
-		if(!value){
-			alert("nn");
-		}
-	}
+		if(value == "False"){
+			$scope.notFoundSerie = true;
+		};
+	};
 
 	$scope.addMinhasSeries = function(serie){
-		if(!$scope.checaSerieRepetida(serie.Title, $scope.minhasSeries)){
+		if(!checaSerieRepetida(serie.Title, $scope.minhasSeries)){
 			$scope.minhasSeries.push(serie);
 		}else{
 			alert("serie repetida");
@@ -49,9 +48,10 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 	}
 
 
-	$scope.formata = function (){
+	$scope.formata = function (buscaSerie){
+		$scope.notFoundSerie = false;
 		var stringFormatada = "https://omdbapi.com/?s=";
-		var busca = $scope.buscaSerie.split(" ");
+		var busca = buscaSerie.split(" ");
 		stringFormatada += busca[0];
 
  		for(var i = 1; i < busca.length; i++ ){
@@ -64,15 +64,13 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 		};
 
 		stringFormatada += "&apikey=93330d3c&type=series";
-		console.log(stringFormatada);
 		carregaSeries(stringFormatada);
  	};
 
 
  	$scope.addWatchlist = function(serie){
- 		if(!$scope.checaSerieRepetida(serie.Title, $scope.watchlist)){
+ 		if(!checaSerieRepetida(serie.Title, $scope.watchlist)){
  			$scope.watchlist.push(serie);
- 			console.log($scope.watchlist);
  		}else{
  			alert("serie repetida");
  		}
@@ -92,11 +90,11 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 
 	var carregaSeries = function (requisicao) {
 		$http.get(requisicao).then(function (resultado){
-			$scope.serieBuscada = resultado.data;
-			$scope.arrayExibido = $scope.serieBuscada.Search;
-			console.log($scope.serieBuscada);
-			$scope.checaAPI(resultado.Response);
+			$scope.arrayExibido = resultado.data.Search;
+			$scope.findSerie = false;
+			$scope.checaAPI(resultado.data.Response);
 		});
 	};
+
 
 });

@@ -14,14 +14,11 @@
 	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
-
-
-
 <body ng-controller="seriesAppCtrl">
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    	<div class="navbar-header">
+       	<div class="navbar-header">
       		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"></button>
       		<a class="navbar-brand">Banco de Séries</a>
    		</div>
@@ -32,78 +29,83 @@
         		<li class="active"><a href="#" ng-click="irParaMinhasSeries()">Minhas Series</a></li>
         		<li><a href="#" ng-click="irParaMinhaWatchlist()">Watchlist</a></li>
          	</ul>
-      <form class="navbar-form navbar-left">
+      		
+      		<form class="navbar-form navbar-left">
         	<div class="form-group">
           		<input type="text" class="form-control" placeholder="Search" ng-model="buscaSerie">
         	</div>
-        <button type="submit" class="btn btn-default" ng-click="formata()">Submit</button>
+        <button type="submit" class="btn btn-default" ng-click="formata(buscaSerie)">Submit</button>
       </form>
        
     </div>
   </div>
 </nav>
 
+	<!---Alertas-->
 
 
-
+	<div ng-show="notFoundSerie" class="alert alert-danger" style="margin: 30px;">
+		Nenhuma série encontrada :(
 	</div>
 
-	<div id="watchlist"></div>
 
-		<div md-card layout="column" ng-repeat="serie in arrayExibido" class="col-sm-4">
-	
-		<div class="row">
- 			 <div class="col-xs-6 col-md-5">
-    			<a href="#" class="thumbnail">
-      			<img src="{{serie.Poster}}" class="img-seriado" data-target="#infoSerieModal{{$index}}" data-toggle="modal" ng-click="buscaInfoSerie(serie.imdbID)">
-    			</a>
-  			</div>
-  	{{serie.Title}}
-		</div>
+
+
+
+<div md-card layout="column" ng-repeat="serie in arrayExibido" class="col-sm-4">
+	<div class="row">
+ 		 <div class="col-xs-6 col-md-5">
+    		<a href="#" class="thumbnail">
+      		<img src="{{serie.Poster}}" class="img-seriado" data-target="#infoSerieModal{{$index}}" data-toggle="modal" ng-click="buscaInfoSerie(serie.imdbID)"></a>
+  		 </div>{{serie.Title}}
+	</div>
+
+
+
 
 		<div class="modal" id="infoSerieModal{{$index}}" role="dialog">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button class="close" data-dismiss="modal">&times;</button>
-						<h4 class="title" ng-bind="serie.Title"> </h4>
+						<button class="close" data-dismiss="modal">&times;</button>{{serie.Title}}
 					</div>
 
 						<div class="modal-body">
-								<div class="media">
-  									<div class="media-left">
-    									<a >
-      									<img style="height: 250px;" src="{{serie.Poster}}"></a>
-  										</div>
-  										<div class="media-body">
-   									 	 											
-    									<p>Sinopse: {{idSerie.Plot}}</p>
-    									<p>Faixa etária: {{idSerie.Rated}}</p>
-    									<p>Média IMDB: {{idSerie.imdbRating}}</p>
-    									<p>Sua nota: </p>
-    									<input placeholder="Sua avaliação"/><button>Avaliar</button>
-    									<br/>
-    									<br/>
-    										<button ng-click="addMinhasSeries(serie)"> Já vi</button>
-											<button ng-click="addWatchlist(serie)"> Quero Ver</button>
-											<button class="btn btn-danger">Remover</button>
-    								  	
+							<div class="media">
+  								<div class="media-left">
+    								<a >
+      								<img style="height: 250px;" src="{{serie.Poster}}"></a>
   									</div>
+  									<div class="media-body">
+   								 	 											
+    								<p>Sinopse: {{idSerie.Plot}}</p>
+    								<p>Faixa etária: {{idSerie.Rated}}</p>
+    								<p>Média IMDB: {{idSerie.imdbRating}}</p>
+    	    						<form name="myForm">
+    								  <label for="repeatSelect"> Sua nota: </label>
+     								  <select name="repeatSelect" id="repeatSelect" ng-model="optionsNotas">
+      								  	<option ng-repeat="option in optionsNotas" value="{{option}}">{{option}}</option>
+      								  </select>
+  									</form>
+      								<br/>
+    								<br/>
+    									<button ng-click="addMinhasSeries(serie)"> Já vi</button>
+										<button ng-click="addWatchlist(serie)"> Quero Ver</button>
+										<button class="btn btn-danger">Remover</button>
+    								  	
+  								</div>
 							</div>
- 								
-						</div>				
-				</div>
-			</div>
+ 						</div>	
 
-					<div class="modal-footer">
-						<button class="btn btn-primary" data-dismiss="modal"> Fechar</button>
-					</div>
+
+					<div class="modal-footer"><button class="btn btn-primary" data-dismiss="modal" ng-click="removeWatchlist()"> Fechar</button></div>
 				</div>
-			</div>
+			</div>			
 		</div>
+</div>
 
-	</div>
-
+					
+	
 
 </body>
 </html>
