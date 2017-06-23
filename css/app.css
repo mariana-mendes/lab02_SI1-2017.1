@@ -1,43 +1,16 @@
 
-.tituloPagina{
-	font-style: inherit;
-	color :#ffffff;
-	font-size: 26px;
-	font-family: Verdana;
-	text-align: left;
-	margin-left: 20px;
-	margin-bottom: 40px;
-}
+.tabsdemoDynamicHeight md-content {
+  background-color: transparent !important; }
+  .tabsdemoDynamicHeight md-content md-tabs {
+    background: #f6f6f6;
+    border: 1px solid #e1e1e1; }
+    .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+      background: white; }
+  .tabsdemoDynamicHeight md-content h1:first-child {
+    margin-top: 0; }
 
 
 
-.img-seriado{
-	width: 216px;
-	height: 288px;
-	background-color: yellow;
-	align-items: center;
-	
-}
-
-.form-control{
-	width: 300px;
-	margin-right: 200px;
-	margin-top: 5px;
-	margin-bottom: 10px;
-	height: 30px;
-	float: right;
-
-}
-
-
-.hide{
-	display: none;
-}
-
-
-.show{
-	display: block;
-}
 
 	
 .text-sinopse{

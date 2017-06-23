@@ -1,4 +1,4 @@
-angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http) {
+angular.module("seriesApp",['ngMaterial']).controller("seriesAppCtrl", function ($scope, $http) {
 	$scope.app = "Banco de Series"
 	$scope.watchlist = [];
 	$scope.arrayExibido = [];
@@ -6,6 +6,8 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 	$scope.idSerie ="";
 	$scope.optionsNotas = [1,1.5,2,2.5,3,3.5,4,4.5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10];
 	$scope.notFoundSerie;
+
+
 
 
 
@@ -98,3 +100,4 @@ angular.module("seriesApp").controller("seriesAppCtrl", function ($scope, $http)
 
 
 });
+
