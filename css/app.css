@@ -13,7 +13,7 @@
 
 .img-seriado{
 	width: 216px;
-	height: 288;
+	height: 288px;
 	background-color: yellow;
 	align-items: center;
 	
@@ -27,6 +27,16 @@
 	height: 30px;
 	float: right;
 
+}
+
+
+.hide{
+	display: none;
+}
+
+
+.show{
+	display: block;
 }
 
 	
