@@ -26,80 +26,73 @@
 	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
-<!--<body ng-controller="seriesAppCtrl">
 
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-       	<div class="navbar-header">
-      		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"></button>
-      		<a class="navbar-brand">Banco de Séries</a>
-   		</div>
-
-
-   		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      		<ul class="nav navbar-nav">
-        		<li class="active"><a href="#" ng-click="irParaMinhasSeries()">Minhas Series</a></li>
-        		<li><a href="#" ng-click="irParaMinhaWatchlist()">Watchlist</a></li>
-         	</ul>
-      		
-      		<form class="navbar-form navbar-left">
-        	<div class="form-group">
-          		<input type="text" class="form-control" placeholder="Search" ng-model="buscaSerie">
-        	</div>
-        <button type="submit" class="btn btn-default" ng-click="formata(buscaSerie)">Submit</button>
-      </form>
-       
-    </div>
-  </div>
-</nav> -->
-
+<!---Barra de navegação -->
 
 <body ng-controller="seriesAppCtrl">
 
+ <!---SERIES--> 
 
 <div ng-cloak>
   <md-content>
     <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="Minhas Series">
+      <md-tab label="Minhas Series"  ng-click="escondeBusca()">
         <md-content class="md-padding">
           <h1 class="md-display-2">Minhas Series</h1>
-     			
-
-
+          <dir ng-repeat="a in minhasSeries">
+            <img src="{{a.Poster}}"/><button ng-click="removeMinhasSeries(a)">Remove</button>
+          </dir>
         </md-content>
       </md-tab>
-      <md-tab label="two">
+
+
+     <!---WATCHLIST--> 
+
+      <md-tab label="Watchlist" ng-click="escondeBusca()">
         <md-content class="md-padding">
-          <h1 class="md-display-2">Tab Two</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
-          <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
-          <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+          <h1 class="md-display-2">Watchlist</h1>
+
+
+          <div md-card layout="column" ng-repeat="s in watchlist" class="col-sm-4">
+            <div class="row">
+              <div class="col-xs-6 col-md-5">
+                <a href="#" class="thumbnail" heigth="297" width="200">
+                  <img src="{{s.Poster}}" class="img-seriado"></a>
+               
+                    <md-button class="md-primary md-raised" ng-click="showConfirm($event, s)">Remove</md-button>
+
+               </div>
+               {{serie.Title}}
+            </div> 
+            </div>        
         </md-content>
       </md-tab>
-      <md-tab label="three">
+
+
+     <!---BUSCA--> 
+
+      <md-tab label="busca" >
         <md-content class="md-padding">
-          <h1 class="md-display-2">Tab Three</h1>
-          <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+          <h1 class="md-display-2">Busca</h1>
+            <form class="navbar-form navbar-left">
+              <div class="form-group">
+                 <input type="text" class="form-control" placeholder="Search" ng-model="buscaSerie">
+              </div>
+            <button type="submit" class="btn btn-default" ng-click="carregaSeries(buscaSerie)">Submit</button>
+      </form>
+          
         </md-content>
       </md-tab>
-
-       <md-tab label="Buscar Series">
-        <md-content class="md-padding">
-          <h1 class="md-display-2">Minhas Series</h1>
-     			
-
-
-        </md-content>
-      </md-tab>
-    </md-tabs>
+   </md-tabs>
   </md-content>
 </div>
 
+  
 
 	<!---Alertas-->
 
 
-	<div ng-show="notFoundSerie" class="alert alert-danger" style="margin: 30px;">
+	<div ng-show="notFoundSerie && mostraBusca" class="alert alert-danger"  style="margin: 30px;">
 		Nenhuma série encontrada :(
 	</div>
 
@@ -107,7 +100,8 @@
 
 
 
-<div md-card layout="column" ng-repeat="serie in arrayExibido" class="col-sm-4">
+
+<div md-card layout="column" ng-repeat="serie in arrayExibido" class="col-sm-4" ng-show="mostraBusca">
 	<div class="row">
  		 <div class="col-xs-6 col-md-5">
     		<a href="#" class="thumbnail" heigth="297" width="200">
@@ -118,6 +112,7 @@
 
 
 
+<!--MODAL SERIE-->
 
 		<div class="modal" id="infoSerieModal{{$index}}" role="dialog">
 			<div class="modal-dialog">
@@ -137,6 +132,8 @@
     								<p>Sinopse: {{idSerie.Plot}}</p>
     								<p>Faixa etária: {{idSerie.Rated}}</p>
     								<p>Média IMDB: {{idSerie.imdbRating}}</p>
+
+
     	    						<form name="myForm">
     								  <label for="repeatSelect"> Sua nota: </label>
      								  <select name="repeatSelect" id="repeatSelect" ng-model="optionsNotas">
