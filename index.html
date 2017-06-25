@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html ng-app="seriesApp">
 <head>
-	<title>Laboratorio 2 - SI1 - 2017.1</title>
+	<title>Banco de Séries</title>
 	 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="css/app.css">
+	<link rel="icon" href="icone_tv.ico">
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 
-		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
 
+  
 
 	<!-- Angular Material requires Angular.js Libraries -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
@@ -22,143 +24,162 @@
 	<script src="js/app.js"></script>
 	<script src="js/controller/seriesAppCtrl.js"></script>
 	<script src="js/controller/moduleCtrl.js"></script>
-	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="lib/jquery/jquery-3.2.1.min.js"></script>
 	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+	<script src="js/controller/service/seriesAPIService.js"></script>
+  	<script src="js/value/configValue.js"></script>
 
 </head>
 
 <!---Barra de navegação -->
 
-<body ng-controller="seriesAppCtrl">
+<body ng-controller="seriesAppCtrl" >
 
- <!---SERIES--> 
+<h2>BANCO DE SÉRIES
+</h2>
 
-<div ng-cloak>
+
+<div ng-cloak >
   <md-content>
     <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="Minhas Series"  ng-click="escondeBusca()">
+      <md-tab label="PERFIL"  ng-click="escondeBusca()">
         <md-content class="md-padding">
-          <h1 class="md-display-2">Minhas Series</h1>
-          <dir ng-repeat="a in minhasSeries">
-            <img src="{{a.Poster}}"/><button ng-click="removeMinhasSeries(a)">Remove</button>
-          </dir>
+          <h3 class="md-display-2" id="text-home">Suas séries: </h3>
+         
+
+          		<div ng-cloak ng-repeat="serie in minhasSeries">
+ 			 		<md-content  style="float: left" class="md-padding" layout-xs="column" layout="row">
+    					 <md-card> 
+       				 		<img ng-if="serie.Poster != 'N/A'" ng-src="{{serie.Poster}}"  class="md-card-image" alt="{{serie.Title}}">
+       				 		<img title="{{serie.Title}}" ng-if="serie.Poster == 'N/A'" src="http://www.uh.edu/pharmacy/_images/students/pcol-pceu/no-image-available-2.jpg" class="md-card-image" >
+
+       				 		<md-card-title>
+          					<md-card-title-text>
+            					<md-button class="md-primary md-raised" ng-click="confirmRemoveMinhasSeries($event, serie)">Remover</md-button>
+								<md-button  class="md-primary md-raised" data-toggle="modal" data-target="#modalSerie" ng-click="buscaInfoSerieModal(serie.imdbID)">INFO SERIE</md-button>
+								<md-button class="md-primary md-raised" ng-click="showPrompt($event)" ng-model="ultimoEP">Adicionar Episodio</md-button>
+          					</md-card-title-text>
+
+	        				</md-card-title>
+
+
+      				  		<md-card-actions layout="row" layout-align="start center">
+       		 					
+        					</md-card-actions>
+   	 					</md-card>
+   	 				</md-content> 
+   	 			</div> 
+
+
         </md-content>
       </md-tab>
 
 
-     <!---WATCHLIST--> 
+<!--Segunda tab -->
 
       <md-tab label="Watchlist" ng-click="escondeBusca()">
-        <md-content class="md-padding">
-          <h1 class="md-display-2">Watchlist</h1>
-
-
-          <div md-card layout="column" ng-repeat="s in watchlist" class="col-sm-4">
-            <div class="row">
-              <div class="col-xs-6 col-md-5">
-                <a href="#" class="thumbnail" heigth="297" width="200">
-                  <img src="{{s.Poster}}" class="img-seriado"></a>
-               
-                    <md-button class="md-primary md-raised" ng-click="showConfirm($event, s)">Remove</md-button>
-
-               </div>
-               {{serie.Title}}
-            </div> 
-            </div>        
+        <md-content class="md-padding" >
+          <h1 class="md-display-2"  id="text-home">Sua watchlist:</h1>
+          	<div ng-cloak ng-repeat="serie in watchlist">
+	 			<md-content  style="float: left" class="md-padding" layout-xs="column" layout="row">
+    			 	<md-card> 
+       				 	<img ng-if="serie.Poster != 'N/A'" ng-src="{{serie.Poster}}"  class="md-card-image" alt="{{serie.Title}}">
+       				 	<img title="{{serie.Title}}"  ng-if="serie.Poster == 'N/A'" src="http://www.uh.edu/pharmacy/_images/students/pcol-pceu/no-image-available-2.jpg" class="md-card-image" >
+      				  	<md-card-title>
+          					<md-card-title-text>
+            					<span class="md-headline">{{serie.Title}}</span>
+            					<md-button class="md-primary md-raised" ng-click="addMinhasSeries(serie)"> MEU PERFIL </md-button>
+          		  	      		<md-button class="md-primary md-raised" ng-click="buscaInfoSerie(serie.imdbID, $event)">Info Série</md-button>
+          		  				<md-button class="md-primary md-raised" ng-click="confirmRemoveWatchlist($event, serie)">Remover</md-button>
+          					</md-card-title-text>
+          				</md-card-title>
+   	 				</md-card>
+  			 	</md-content>  
+  		 	</div>
         </md-content>
       </md-tab>
 
 
-     <!---BUSCA--> 
+<!--terceira tab -->
 
-      <md-tab label="busca" >
+      <md-tab label="BUSCANDO NOVAS SÉRIES?">
         <md-content class="md-padding">
-          <h1 class="md-display-2">Busca</h1>
-            <form class="navbar-form navbar-left">
-              <div class="form-group">
-                 <input type="text" class="form-control" placeholder="Search" ng-model="buscaSerie">
-              </div>
-            <button type="submit" class="btn btn-default" ng-click="carregaSeries(buscaSerie)">Submit</button>
-      </form>
-          
+
+          	<form class="navbar-form navbar-left">
+         			<div class="form-group"><input style="width: 300px; margin-top: 23px;" toype="text" class="form-control" placeholder="nome da serie" ng-model="buscaSerie"></div>
+         			<button style="margin: 15px; margin-top: 10px;" type="submit" class="btn btn-default" ng-click="carregaSeries(buscaSerie)">BUSCAR</button>
+    			</form>
+      
         </md-content>
       </md-tab>
-   </md-tabs>
+    </md-tabs>
   </md-content>
 </div>
 
-  
-
-	<!---Alertas-->
 
 
-	<div ng-show="notFoundSerie && mostraBusca" class="alert alert-danger"  style="margin: 30px;">
-		Nenhuma série encontrada :(
-	</div>
+<!--EXIBE BUSCA -->
 
-
-
-
-
-
-<div md-card layout="column" ng-repeat="serie in arrayExibido" class="col-sm-4" ng-show="mostraBusca">
-	<div class="row">
- 		 <div class="col-xs-6 col-md-5">
-    		<a href="#" class="thumbnail" heigth="297" width="200">
-    		<button class="close" data-dismiss="modal">&times;</button>
-      		<img src="{{serie.Poster}}" class="img-seriado" data-target="#infoSerieModal{{$index}}" data-toggle="modal" ng-click="buscaInfoSerie(serie.imdbID)" style=></a>
-  		 </div>{{serie.Title}}
-	</div>
+<div ng-cloak ng-repeat="serie in arrayExibido" ng-show="mostraBusca">
+  	<md-content  style="float: left" class="md-padding" layout-xs="column" layout="row">
+     	<md-card> 
+        	<img ng-if="serie.Poster != 'N/A'" ng-src="{{serie.Poster}}"  class="md-card-image" alt="{{serie.Title}}">
+        	<img title="{{serie.Title}}"  ng-if="serie.Poster == 'N/A'" src="http://www.uh.edu/pharmacy/_images/students/pcol-pceu/no-image-available-2.jpg" class="md-card-image" >
+        	<md-card-title>
+          		<md-card-title-text>
+          			<h4>{{serie.Title}}</h4>
+            	    	 <md-button class="md-primary md-raised" ng-click="buscaInfoSerie(serie.imdbID, $event)">Info Série</md-button>
+            	 		 <md-button ng-click="addWatchlist(serie)" class="md-primary md-raised"> WATCHLIST</md-button>
+          		  		 <md-button ng-click="addMinhasSeries(serie)" class="md-primary md-raised"> MEU PERFIL </md-button>
+          		</md-card-title-text>
+        	</md-card-title>                 				
+   	 	</md-card>
+   	</md-content>  
+   </div>	
 
 
 
-<!--MODAL SERIE-->
-
-		<div class="modal" id="infoSerieModal{{$index}}" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button class="close" data-dismiss="modal">&times;</button>{{serie.Title}}
-					</div>
-
-						<div class="modal-body">
-							<div class="media">
-  								<div class="media-left">
-    								<a >
-      								<img style="height: 250px;" src="{{serie.Poster}}"></a>
-  									</div>
-  									<div class="media-body">
-   								 	 											
-    								<p>Sinopse: {{idSerie.Plot}}</p>
-    								<p>Faixa etária: {{idSerie.Rated}}</p>
-    								<p>Média IMDB: {{idSerie.imdbRating}}</p>
-
-
-    	    						<form name="myForm">
-    								  <label for="repeatSelect"> Sua nota: </label>
-     								  <select name="repeatSelect" id="repeatSelect" ng-model="optionsNotas">
-      								  	<option ng-repeat="option in optionsNotas" value="{{option}}">{{option}}</option>
-      								  </select>
-  									</form>
-      								<br/>
-    								<br/>
-    									<button ng-click="addMinhasSeries(serie)"> Já vi</button>
-										<button ng-click="addWatchlist(serie)"> Quero Ver</button>
-										
-    								  	
-  								</div>
-							</div>
- 						</div>	
-
-
-					<div class="modal-footer"><button class="btn btn-primary" data-dismiss="modal" ng-click="removeWatchlist()"> Fechar</button></div>
-				</div>
-			</div>			
-		</div>
+<!---Alertas-->
+<div ng-show="notFoundSerie && mostraBusca" class="alert alert-danger"  style="margin: 30px;">
+	Nenhuma série encontrada :(
 </div>
 
-					
-	
+
+
+<!--MODAL -->
+
+
+
+<div class="modal" id="modalSerie{{$index}}" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4><b>{{idSerie.Title}}</b></h4>
+				<button class="close" data-dismiss="modal">&times;</button>{{serie.Title}}
+				
+			</div>
+
+			<div class="modal-body">
+				<div class="media">
+  					<div class="media-left"><a><img style="height: 250px;" src="{{serie.Poster}}"></a></div>
+  						<div class="media-body">
+  							<img class="img-resumo" src="{{idSerie.Poster}}"/>
+							<p><b>Sinopse:</b> {{idSerie.Plot}}</p>
+    						<p><b>Faixa etária:</b> {{idSerie.Rated}}</p>
+    						<p><b>Média IMDB:</b> {{idSerie.imdbRating}}</p>
+    						<p><b>Sua nota: </b> {{avaliacao}}<input style="width: 170px;" type="range" name="points" min="0" max="10" ng-model="avaliacao">
+    						<p><b>Último episódio visto: </b><d ng-bind="ultimoEP"></d></p> 	    					
+						</div>
+				</div>
+ 			</div>	
+
+			<div class="modal-footer"><button class="btn btn-primary" data-dismiss="modal" ng-click="removeWatchlist()"> Fechar</button></div>
+		</div>
+	</div>			
+</div>
+
+
 
 </body>
 </html>
