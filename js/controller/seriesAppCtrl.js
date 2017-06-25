@@ -72,25 +72,45 @@ $scope.confirmRemoveMinhasSeries = function(ev, serie) {
 
 
 
-  $scope.buscaInfoSerie = function(key, ev){
-    seriesAPI.getSeriesPlot(key+ "&apikey=93330d3c").then(function(data, status){
-      $scope.showAlert(ev, data.data);
-      $scope.idSerie = data.data; 
-    }).catch(function(data, status){
-      alert("Algo deu errado");
-    });
-
- 	};
-
-  $scope.buscaInfoSerieModal = function(key){
-      seriesAPI.getSeriesPlot(key+ "&apikey=93330d3c").then(function(data, status){
-        $scope.idSerie = data.data; 
-    }).catch(function(data, status){
-      alert("Algo deu errado");
-    });
-
-
+  $scope.alertInfo = function( key, ev){
+    var serie = $scope.buscaInfoSerie(key);
+      serie.then(function(response){
+      $scope.showAlert(ev,response);
+    })  
   };
+
+  $scope.alertInfo = function( key, ev){
+    $scope.buscaInfoSerie(key);
+    $scope.showAlert(ev,$scope.idSerie);
+  };
+
+ 
+ $scope.buscaInfoSerie = function(key, ev){
+    var promise = seriesAPI.getSeriesPlot(key+ "&apikey=93330d3c");
+    promise.then(function(data, status){
+      $scope.idSerie = data.data;
+    }).catch(function(data, status){
+    alert("Algo deu errado");
+  });
+    return promise;
+  };
+
+
+    $scope.showAlert = function(ev, serie ) {
+      $mdDialog.show(
+      $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .clickOutsideToClose(true)
+        .title(serie.Title)
+        .textContent('Sinopse: ' + serie.Plot)
+        .ariaLabel('Alert Dialog Demo')
+        .ok('Ok!')
+        .targetEvent(ev)
+    );
+  };
+
+
+ 
 
 
   $scope.carregaSeries = function (nome){
@@ -108,19 +128,6 @@ $scope.confirmRemoveMinhasSeries = function(ev, serie) {
   };
   
 
-
-    $scope.showAlert = function(ev, serie ) {
-      $mdDialog.show(
-      $mdDialog.alert()
-        .parent(angular.element(document.querySelector('#popupContainer')))
-        .clickOutsideToClose(true)
-        .title(serie.Title)
-        .textContent('Sinopse: ' + serie.Plot)
-        .ariaLabel('Alert Dialog Demo')
-        .ok('Ok!')
-        .targetEvent(ev)
-    );
-  };
 
 
 	$scope.removeMinhasSeries = function(serie){
