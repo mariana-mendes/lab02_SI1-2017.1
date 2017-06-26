@@ -33,12 +33,6 @@ body.modal-open div.modal-backdrop {
     z-index: 0; 
 }
 
-
-.md-button{
-	margin: 20px;
-	font-size: 10px;
-}
-
 #text-home{
 	font-size: 30px
 
@@ -86,4 +80,10 @@ md-card-title{
 
 #exibicao{
 	float: left;
+}
+
+#episodio{
+	width: 170px;
+	margin-left: 20px;
+
 }

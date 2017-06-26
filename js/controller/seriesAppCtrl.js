@@ -5,7 +5,17 @@ angular.module("seriesApp",['ngMaterial']).controller("seriesAppCtrl", function 
 	$scope.minhasSeries = [];
 	$scope.idSerie ="";
 	$scope.mostraBusca = true;
-	$scope.ultimoEP;
+
+
+    $scope.buscaInfoSerie = function(key){
+      seriesAPI.getSeriesPlot("?i="+key+ "&apikey=93330d3c").then(function(data, status){
+      $scope.idSerie = data.data;
+      }).catch(function(data, status){
+      alert("Algo deu errado");
+    });
+ 
+  };
+
 
 
    $scope.carregaSeries = function (nome,ev){
@@ -27,15 +37,17 @@ angular.module("seriesApp",['ngMaterial']).controller("seriesAppCtrl", function 
         .ok('Ok!')
         .targetEvent(ev)
     );
+
+    $scope.escondeBusca();
   };
 
   $scope.addMinhasSeries = function(ev, serie){
     if(checaSerieRepetida(serie, $scope.minhasSeries)){
-        alert("serie repetida");
+        alert("Essa série já está no seu perfil!");
     }else if(checaSerieRepetida(serie, $scope.watchlist)){
          $scope.watchlistParaPerfil(ev, serie);
     }else{
-        $scope.minhasSeries.push(serie);
+         $scope.minhasSeries.push(serie);
          $scope.showDialogConfirm(ev, serie );
     }
   };
@@ -45,9 +57,7 @@ angular.module("seriesApp",['ngMaterial']).controller("seriesAppCtrl", function 
           .textContent("Tem certeza que quer remover "+ serie.Title + " da sua Watchlist e adicionar ao perfil?")
           .targetEvent(ev)
           .ok('Sim, por favor')
-          .cancel('Não!');
-
-	
+          .cancel('Não!');	
     $mdDialog.show(confirm).then(function() {
 	  $scope.minhasSeries.push(serie); 
 	  $scope.removeWatchlist(serie);
@@ -85,7 +95,7 @@ angular.module("seriesApp",['ngMaterial']).controller("seriesAppCtrl", function 
       $scope.watchlist.push(serie);
       $scope.showDialogConfirm(ev, serie);
     }else{
-      alert("serie repetida");
+      alert("Essa série já está na sua watchlist!");
     }
   };
 
@@ -109,18 +119,6 @@ angular.module("seriesApp",['ngMaterial']).controller("seriesAppCtrl", function 
 		},function() {});
 	};
 
-	$scope.dialogoEpisodio = function(ev) {
-     var confirm = $mdDialog.prompt()
-      .title('Último episódio visto?')
-      .placeholder('(EX: S01E02)')
-      .targetEvent(ev)
-      .ok('enviar')
-      .cancel('Cancelar');
-      
-    $mdDialog.show(confirm).then(function(result) {
-        	$scope.ultimoEP = result;
-			});
-	};
 
 
   $scope.getSinopse = function(){
@@ -137,22 +135,12 @@ angular.module("seriesApp",['ngMaterial']).controller("seriesAppCtrl", function 
         .targetEvent(ev));
   };
  
-	$scope.buscaInfoSerie = function(key){
-		var promise = seriesAPI.getSeriesPlot("?i="+key+ "&apikey=93330d3c");
-		promise.then(function(data, status){
-			$scope.idSerie = data.data;
-		}).catch(function(data, status){
-			alert("Algo deu errado");
-		});
-    return promise;
-  };
 
 	$scope.escondeBusca = function(){
 		$scope.mostraBusca = false;
 	}
 
  
-
 
 	var checaAPI = function(resultado,ev){
 		if(resultado.Response == "False"){
@@ -163,7 +151,14 @@ angular.module("seriesApp",['ngMaterial']).controller("seriesAppCtrl", function 
     }
   };
   
+
 	var checaSerieRepetida = function(idSerie, array){
-		return (array.indexOf(idSerie) > -1);
+		for (var i = array.length - 1; i >= 0; i--) {
+          if(array[i].imdbID == idSerie.imdbID){
+            return true;
+          }
+    }
+
+    return false;
 		};
 });
