@@ -57,7 +57,7 @@
        				 		<md-card-title>
           					<md-card-title-text>
             					<md-button class="md-primary md-raised" ng-click="confirmRemoveMinhasSeries($event, serie)">Remover</md-button>
-								<md-button  class="md-primary md-raised" data-toggle="modal" data-target="#modalSerie" ng-click="buscaInfoSerie(serie.imdbID)">INFO SERIE</md-button>
+								<md-button  class="md-primary md-raised" data-toggle="modal" data-target="#modalSerie" ng-click="buscaInfoSerie(serie.imdbID); getSinopse()">INFO SERIE</md-button>
 								<md-button class="md-primary md-raised" ng-click="showPrompt($event)" ng-model="ultimoEP">Adicionar Episodio</md-button>
           					</md-card-title-text>
 
@@ -90,8 +90,7 @@
           					<md-card-title-text>
             					<span class="md-headline">{{serie.Title}}</span>
             					<md-button class="md-primary md-raised" ng-click="addMinhasSeries(serie)"> MEU PERFIL </md-button>
-          		  	      		<md-button class="md-primary md-raised" ng-click="alertInfo(serie.imdbID, $event)">Info Série</md-button>
-          		  				<md-button class="md-primary md-raised" ng-click="confirmRemoveWatchlist($event, serie)">Remover</md-button>
+          		  	   	<md-button class="md-primary md-raised" ng-click="confirmRemoveWatchlist($event, serie)">Remover</md-button>
           					</md-card-title-text>
           				</md-card-title>
    	 				</md-card>
@@ -108,7 +107,8 @@
 
           	<form class="navbar-form navbar-left">
          			<div class="form-group"><input style="width: 300px; margin-top: 23px;" toype="text" class="form-control" placeholder="nome da serie" ng-model="buscaSerie"></div>
-         			<button style="margin: 15px; margin-top: 10px;" type="submit" class="btn btn-default" ng-click="carregaSeries(buscaSerie)">BUSCAR</button>
+         			<button style="margin: 15px; margin-top: 10px;" type="submit" class="btn btn-default" ng-click="carregaSeries(buscaSerie,$event
+              )">BUSCAR</button>
     			</form>
       
         </md-content>
@@ -129,21 +129,13 @@
         	<md-card-title>
           		<md-card-title-text>
           			<h4>{{serie.Title}}</h4>
-            	    	 <md-button class="md-primary md-raised" ng-click="alertInfo(serie.imdbID, $event)">Info Série</md-button>
-            	 		 <md-button ng-click="addWatchlist(serie)" class="md-primary md-raised"> WATCHLIST</md-button>
-          		  		 <md-button ng-click="addMinhasSeries(serie)" class="md-primary md-raised"> MEU PERFIL </md-button>
+            	 	 		 <md-button ng-click="addWatchlist($event, serie);" class="md-primary md-raised"> WATCHLIST</md-button>
+          		  		 <md-button ng-click="addMinhasSeries($event, serie)" class="md-primary md-raised"> MEU PERFIL </md-button>
           		</md-card-title-text>
         	</md-card-title>                 				
    	 	</md-card>
    	</md-content>  
    </div>	
-
-
-
-<!---Alertas-->
-<div ng-show="notFoundSerie && mostraBusca" class="alert alert-danger"  style="margin: 30px;">
-	Nenhuma série encontrada :(
-</div>
 
 
 
