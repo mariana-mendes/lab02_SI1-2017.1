@@ -3,7 +3,6 @@
 float: left;
 
 }
-	
 .text-sinopse{
 	text-align: left;
 	font-size: 15px;
@@ -81,6 +80,10 @@ html{
 }
 
 md-card-title{
-
 	 display: inline-block;
+}
+
+
+#exibicao{
+	float: left;
 }

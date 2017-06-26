@@ -7,8 +7,6 @@
 	<link rel="stylesheet" type="text/css" href="css/app.css">
 	<link rel="icon" href="icone_tv.ico">
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
-
-
   
 
 	<!-- Angular Material requires Angular.js Libraries -->
@@ -26,7 +24,6 @@
 	<script src="js/controller/moduleCtrl.js"></script>
 	<script src="lib/jquery/jquery-3.2.1.min.js"></script>
 	<script src="lib/bootstrap/js/bootstrap.min.js"></script>
-
 	<script src="js/controller/service/seriesAPIService.js"></script>
   	<script src="js/value/configValue.js"></script>
 
@@ -49,7 +46,7 @@
          
 
           		<div ng-cloak ng-repeat="serie in minhasSeries">
- 			 		<md-content  style="float: left" class="md-padding" layout-xs="column" layout="row">
+ 			 		<md-content  class="md-padding" layout-xs="column" layout="row" id="exibicao">
     					 <md-card> 
        				 		<img ng-if="serie.Poster != 'N/A'" ng-src="{{serie.Poster}}"  class="md-card-image" alt="{{serie.Title}}">
        				 		<img title="{{serie.Title}}" ng-if="serie.Poster == 'N/A'" src="http://www.uh.edu/pharmacy/_images/students/pcol-pceu/no-image-available-2.jpg" class="md-card-image" >
@@ -58,11 +55,9 @@
           					<md-card-title-text>
             					<md-button class="md-primary md-raised" ng-click="confirmRemoveMinhasSeries($event, serie)">Remover</md-button>
 								<md-button  class="md-primary md-raised" data-toggle="modal" data-target="#modalSerie" ng-click="buscaInfoSerie(serie.imdbID); getSinopse()">INFO SERIE</md-button>
-								<md-button class="md-primary md-raised" ng-click="showPrompt($event)" ng-model="ultimoEP">Adicionar Episodio</md-button>
+								<md-button class="md-primary md-raised" ng-click="dialogoEpisodio($event)" ng-model="ultimoEP">Adicionar Episodio</md-button>
           					</md-card-title-text>
-
 	        				</md-card-title>
-
 
       				  		<md-card-actions layout="row" layout-align="start center">
        		 					
@@ -76,20 +71,20 @@
       </md-tab>
 
 
-<!--Segunda tab -->
+<!-- WATCHLIST--->
 
       <md-tab label="Watchlist" ng-click="escondeBusca()">
         <md-content class="md-padding" >
           <h1 class="md-display-2"  id="text-home">Sua watchlist:</h1>
           	<div ng-cloak ng-repeat="serie in watchlist">
-	 			<md-content  style="float: left" class="md-padding" layout-xs="column" layout="row">
+	 			<md-content  class="md-padding" layout-xs="column" layout="row" id="exibicao">
     			 	<md-card> 
        				 	<img ng-if="serie.Poster != 'N/A'" ng-src="{{serie.Poster}}"  class="md-card-image" alt="{{serie.Title}}">
        				 	<img title="{{serie.Title}}"  ng-if="serie.Poster == 'N/A'" src="http://www.uh.edu/pharmacy/_images/students/pcol-pceu/no-image-available-2.jpg" class="md-card-image" >
       				  	<md-card-title>
           					<md-card-title-text>
             					<span class="md-headline">{{serie.Title}}</span>
-            					<md-button class="md-primary md-raised" ng-click="addMinhasSeries(serie)"> MEU PERFIL </md-button>
+            					<md-button class="md-primary md-raised" ng-click="addMinhasSeries($event, serie)"> MEU PERFIL </md-button>
           		  	   	<md-button class="md-primary md-raised" ng-click="confirmRemoveWatchlist($event, serie)">Remover</md-button>
           					</md-card-title-text>
           				</md-card-title>
@@ -100,7 +95,7 @@
       </md-tab>
 
 
-<!--terceira tab -->
+<!--INPUT BUSCA -->
 
       <md-tab label="BUSCANDO NOVAS SÉRIES?">
         <md-content class="md-padding">
@@ -118,11 +113,10 @@
 </div>
 
 
-
 <!--EXIBE BUSCA -->
 
 <div ng-cloak ng-repeat="serie in arrayExibido" ng-show="mostraBusca">
-  	<md-content  style="float: left" class="md-padding" layout-xs="column" layout="row">
+  	<md-content class="md-padding" layout-xs="column" layout="row" id="exibicao">
      	<md-card> 
         	<img ng-if="serie.Poster != 'N/A'" ng-src="{{serie.Poster}}"  class="md-card-image" alt="{{serie.Title}}">
         	<img title="{{serie.Title}}"  ng-if="serie.Poster == 'N/A'" src="http://www.uh.edu/pharmacy/_images/students/pcol-pceu/no-image-available-2.jpg" class="md-card-image" >
@@ -132,15 +126,13 @@
             	 	 		 <md-button ng-click="addWatchlist($event, serie);" class="md-primary md-raised"> WATCHLIST</md-button>
           		  		 <md-button ng-click="addMinhasSeries($event, serie)" class="md-primary md-raised"> MEU PERFIL </md-button>
           		</md-card-title-text>
-        	</md-card-title>                 				
+        	</md-card-title>                
    	 	</md-card>
    	</md-content>  
    </div>	
 
 
-
 <!--MODAL -->
-
 
 
 <div class="modal" id="modalSerie{{$index}}" role="dialog">
@@ -170,7 +162,6 @@
 		</div>
 	</div>			
 </div>
-
 
 
 </body>
